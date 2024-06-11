@@ -8,7 +8,7 @@ import {
   VideoCameraIcon,
   WindowIcon,
 } from "@heroicons/react/24/solid";
-import { Draggable, Droppable } from "react-beautiful-dnd";
+// import React, { useState } from "react";
 
 const tools = [
   { Name: "Heading", icon: <WindowIcon className="size-8" />, id: "heading" },
@@ -34,34 +34,27 @@ const tools = [
 ];
 
 const Toolbar = () => {
+  // const [data, setData] = useState<string[]>([]);
+
+  const handleOnDrag = (e: React.DragEvent, Name: string) => {
+    e.dataTransfer.setData("Name", Name);
+  };
+
   return (
     <div className="h-dvh col-span-1 p-1 rounded-md">
-      <Droppable droppableId="toolbar">
-        {(provided) => (
+      <div className="grid gap-4 sm:grid-cols-2 h-dvh ">
+        {tools.map(({ Name, icon }, index) => (
           <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className="grid gap-4 sm:grid-cols-2 h-dvh "
+            draggable
+            onDragStart={(e) => handleOnDrag(e, Name)}
+            key={index}
+            className="bg-red-300 rounded-lg flex flex-col-reverse justify-center items-center"
           >
-            {tools.map(({ Name, id, icon }, index) => (
-              <Draggable key={id} draggableId={id} index={index}>
-                {(provided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    className="bg-red-300 rounded-lg flex flex-col-reverse justify-center items-center"
-                  >
-                    <h1 className="font-bold">{Name}</h1>
-                    <span>{icon}</span>
-                  </div>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
+            <h1 className="font-bold">{Name}</h1>
+            <span>{icon}</span>
           </div>
-        )}
-      </Droppable>
+        ))}
+      </div>
     </div>
   );
 };
