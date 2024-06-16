@@ -8,7 +8,6 @@ import {
   VideoCameraIcon,
   WindowIcon,
 } from "@heroicons/react/24/solid";
-// import React, { useState } from "react";
 
 const tools = [
   { Name: "Heading", icon: <WindowIcon className="size-8" />, id: "heading" },
@@ -34,21 +33,19 @@ const tools = [
 ];
 
 const Toolbar = () => {
-  // const [data, setData] = useState<string[]>([]);
-
   const handleOnDrag = (e: React.DragEvent, Name: string) => {
     e.dataTransfer.setData("Name", Name);
   };
 
   return (
-    <div className="h-dvh col-span-1 p-1 rounded-md">
-      <div className="grid gap-4 sm:grid-cols-2 h-dvh ">
+    <div className=" col-span-1  rounded-md m-2">
+      <div className="grid gap-4 sm:grid-cols-2 h-full ">
         {tools.map(({ Name, icon }, index) => (
           <div
             draggable
             onDragStart={(e) => handleOnDrag(e, Name)}
             key={index}
-            className="bg-red-300 rounded-lg flex flex-col-reverse justify-center items-center"
+            className="bg-white cursor-pointer rounded-lg flex flex-col-reverse justify-center items-center shadow hover:shadow-xl"
           >
             <h1 className="font-bold">{Name}</h1>
             <span>{icon}</span>
